@@ -2,18 +2,77 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>5가지 사랑의 언어 테스트</title>
 <style>
-    body { font-family: 'Arial', sans-serif; margin: 40px; background-color: #f4f4f4; }
-    .container { max-width: 600px; margin: 0 auto; padding: 20px; background-color: #fff; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align: center; }
-    h1 { text-align: center; color: #333; }
-    #intro { font-size: 1.2em; color: #666; margin-bottom: 30px; }
-    #question { font-size: 1.5em; font-weight: bold; margin-bottom: 20px; color: #444; }
-    .buttons { display: flex; flex-direction: column; gap: 15px; }
-    button { padding: 20px; font-size: 16px; cursor: pointer; border: 2px solid #ddd; border-radius: 8px; background-color: #f9f9f9; transition: all 0.3s ease; }
-    button:hover { background-color: #e2e2e2; border-color: #ccc; }
-    #result { white-space: pre-line; font-size: 18px; margin-top: 30px; line-height: 1.6; text-align: left; }
-    #result span { font-weight: bold; }
+    body { 
+        font-family: 'Arial', sans-serif; 
+        margin: 0; 
+        padding: 20px;
+        background-color: #f0f2f5; 
+        color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        box-sizing: border-box;
+    }
+    .container { 
+        width: 100%;
+        max-width: 600px; 
+        padding: 30px; 
+        background-color: #fff; 
+        border-radius: 12px; 
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1); 
+        text-align: center; 
+    }
+    h1 { 
+        font-size: 2em; 
+        margin-bottom: 10px;
+        color: #333; 
+    }
+    #intro { 
+        font-size: 1.1em; 
+        color: #666; 
+        margin-bottom: 30px; 
+    }
+    #question { 
+        font-size: 1.5em; 
+        font-weight: bold; 
+        margin-bottom: 20px; 
+        color: #444; 
+    }
+    .buttons { 
+        display: flex; 
+        flex-direction: column; 
+        gap: 15px; 
+    }
+    button { 
+        padding: 20px; 
+        font-size: 1.1em; 
+        cursor: pointer; 
+        border: 2px solid #ddd; 
+        border-radius: 10px; 
+        background-color: #f9f9f9; 
+        transition: all 0.3s ease; 
+        text-align: left;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    button:hover { 
+        background-color: #eef2f5; 
+        border-color: #ccc; 
+    }
+    #result { 
+        white-space: pre-line; 
+        font-size: 1.1em; 
+        margin-top: 30px; 
+        line-height: 1.6; 
+        text-align: left; 
+    }
+    #result span { 
+        font-weight: bold; 
+        color: #555;
+    }
 </style>
 </head>
 <body>
@@ -59,7 +118,7 @@
         { q: "나는 매일 가벼운 신체 접촉을 원한다.", a: "E", q_b: "나는 매일 상대방의 지지하는 말이 필요하다.", b: "A" },
         { q: "나는 상대에게 선물 받는 것을 좋아한다.", a: "C", q_b: "나는 상대에게 가벼운 신체 접촉을 받을 때 사랑을 느낀다.", b: "E" },
         { q: "나는 상대가 나를 도와줄 때 사랑을 느낀다.", a: "D", q_b: "나는 상대가 안아주는 것을 좋아한다.", b: "E" },
-        { q: "나는 상대와 단둘이 보내는 시간을 좋아한다.", a: "B", q_b: "나는 상대와 단둘이 끌어안고 있는 시간을 좋아한다.", b: "E" },
+        { q: "나는 상대와 단둘이 보내는 시간을 좋아한다.", a: "B", q_b: "나는 상대에게 작지만 선물받는 것을 좋아한다.", b: "C" },
         { q: "나는 상대에게 칭찬을 받을 때 사랑을 느낀다.", a: "A", q_b: "나는 상대가 나를 위해 기꺼이 하기 싫은 일을 해줄 때 사랑을 느낀다.", b: "D" }
     ];
 
@@ -109,7 +168,8 @@
             resultText += `<span>제2언어</span>: ${map[secondLanguage]}\n\n`;
         }
         
-        resultText += "---<br><br>각 언어별 점수:<br>";
+        resultText += `<span>최저 빈도 언어</span>: ${bottomLanguages.join(", ")}\n\n`;
+        resultText += "---<br><br>각 언어 점수:<br>";
         for (const [key, value] of sorted) {
             resultText += `• ${map[key]}: ${value}점\n`;
         }
