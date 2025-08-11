@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>5가지 사랑의 언어 테스트</title>
+<style>
+    body { font-family: 'Arial', sans-serif; margin: 40px; }
+    h1 { text-align: center; }
+    .buttons { margin-top: 20px; display: flex; justify-content: center; gap: 10px; }
+    button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    #result { white-space: pre-line; font-size: 18px; margin-top: 30px; }
+</style>
+</head>
+<body>
+
+<h1>5가지 사랑의 언어 테스트</h1>
+<div id="question"></div>
+<div class="buttons">
+    <button id="btnA" onclick="selectAnswer(choiceA)"></button>
+    <button id="btnB" onclick="selectAnswer(choiceB)"></button>
+</div>
+<div id="result"></div>
+
+<script>
+    const questions = [
+        {q:"나는 나를 인정하는 내용의 쪽지 받기를 좋아한다", a:"A", b:"E"},
+        {q:"나는 안기는 것이 좋다", a:"E", b:"B"},
+        {q:"나는 선물 받는 것을 좋아한다", a:"C", b:"B"},
+        {q:"나는 좋은 말을 듣는 것을 좋아한다", a:"A", b:"D"},
+        {q:"나는 함께 산책하는 것을 좋아한다", a:"B", b:"E"},
+        {q:"나는 누군가 내 말을 잘 들어주는 것을 좋아한다", a:"B", b:"A"},
+        {q:"나는 함께하는 활동이 좋다", a:"B", b:"C"},
+        {q:"나는 스킨십을 좋아한다", a:"E", b:"D"},
+        {q:"나는 칭찬 듣기를 좋아한다", a:"A", b:"E"},
+        {q:"나는 누군가 나를 도와주는 것을 좋아한다", a:"D", b:"B"},
+        {q:"나는 깜짝 선물을 받는 것을 좋아한다", a:"C", b:"A"},
+        {q:"나는 의미 있는 대화를 나누는 것을 좋아한다", a:"B", b:"D"},
+        {q:"나는 부드러운 터치를 좋아한다", a:"E", b:"C"},
+        {q:"나는 특별한 날을 함께하는 것을 좋아한다", a:"B", b:"A"},
+        {q:"나는 집안일을 대신 해주는 것을 좋아한다", a:"D", b:"C"},
+        {q:"나는 따뜻한 말 한마디가 좋다", a:"A", b:"B"},
+        {q:"나는 포옹이 좋다", a:"E", b:"A"},
+        {q:"나는 선물보다 시간을 함께하는 것이 좋다", a:"B", b:"C"},
+        {q:"나는 기념일에 받는 선물이 좋다", a:"C", b:"E"},
+        {q:"나는 피곤할 때 대신 집안일을 해주는 것이 좋다", a:"D", b:"B"},
+        {q:"나는 “잘했어”라는 말을 좋아한다", a:"A", b:"D"},
+        {q:"나는 손잡기를 좋아한다", a:"E", b:"B"},
+        {q:"나는 나를 위해 희생하는 행동이 좋다", a:"D", b:"C"},
+        {q:"나는 누군가 나를 위해 시간을 내주는 것이 좋다", a:"B", b:"A"},
+        {q:"나는 누군가 나를 격려하는 말을 해주는 것이 좋다", a:"A", b:"E"},
+        {q:"나는 의미 있는 선물이 좋다", a:"C", b:"D"},
+        {q:"나는 등이나 어깨를 쓰다듬는 것을 좋아한다", a:"E", b:"B"},
+        {q:"나는 일상적인 대화를 나누는 것이 좋다", a:"B", b:"A"},
+        {q:"나는 나를 위해 무언가를 해주는 것을 좋아한다", a:"D", b:"C"},
+        {q:"나는 사랑한다는 말을 듣는 것이 좋다", a:"A", b:"E"}
+    ];
+
+    let current = 0;
+    let scores = {A:0, B:0, C:0, D:0, E:0};
+    let choiceA = "";
+    let choiceB = "";
+
+    function loadQuestion() {
+        if (current < questions.length) {
+            document.getElementById('question').innerText = (current+1) + ". " + questions[current].q;
+            choiceA = questions[current].a;
+            choiceB = questions[current].b;
+            document.getElementById('btnA').innerText = choiceA;
+            document.getElementById('btnB').innerText = choiceB;
+        } else {
+            showResult();
+        }
+    }
+
+    function selectAnswer(choice) {
+        scores[choice]++;
+        current++;
+        loadQuestion();
+    }
+
+    function showResult() {
+        const map = {
+            A: "인정하는 말",
+            B: "함께하는 시간",
+            C: "선물",
+            D: "봉사",
+            E: "스킨십"
+        };
+
+        let sorted = Object.entries(scores).sort((a,b) => b[1]-a[1]);
+        const maxScore = sorted[0][1];
+        const minScore = sorted[sorted.length-1][1];
+
+        const topLanguages = sorted.filter(([_,score]) => score === maxScore).map(([letter]) => map[letter]);
+        const bottomLanguages = sorted.filter(([_,score]) => score === minScore).map(([letter]) => map[letter]);
+
+        let resultText = "";
+
+        if (topLanguages.length > 1) {
+            resultText += `제1언어(복수): ${topLanguages.join(", ")}\n`;
+            resultText += `최저 빈도 언어: ${bottomLanguages.join(", ")}`;
+        } else {
+            const secondLanguage = sorted[1][0];
+            resultText += `제1언어: ${map[sorted[0][0]]}\n`;
+            resultText += `제2언어: ${map[secondLanguage]}\n`;
+            resultText += `최저 빈도 언어: ${bottomLanguages.join(", ")}`;
+        }
+
+        document.getElementById('result').innerText = resultText;
+        document.getElementById('question').innerText = "";
+        document.querySelector('.buttons').style.display = "none";
+    }
+
+    loadQuestion();
+</script>
+
+</body>
+</html>
