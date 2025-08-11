@@ -79,7 +79,7 @@
 
  <div class="container">
   <h1>5가지 사랑의 언어 테스트</h1>
-  <div id="intro">다음 중 더 선호하는 것을 선택하세요</div>
+  <div id="intro">다음 중 더 선호하는 것을 고르세요</div>
   <div id="question"></div>
   <div class="buttons">
   <button id="btnA" onclick="selectAnswer(questions[(current)].a)"></button>
@@ -168,7 +168,6 @@
   resultText += `<span>제2언어</span>: ${map[(secondLanguage)]}\n\n`;
   }
 
-  resultText += `<span>최저 빈도 언어</span>: ${bottomLanguages.join(", ")}\n\n`;
   resultText += "---<br><br>각 언어 점수:<br>";
   for (const [key, value] of sorted) {
   resultText += `• ${map[(key)]}: ${value}점\n`;
