@@ -109,10 +109,9 @@
 <body>
 
 <div class="container">
-    <h1>사랑의 언어 테스트</h1>
+    <h1>5가지 사랑의 언어 테스트</h1>
     <div id="intro">더 선호하는 것을 고르세요</div>
     <div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
-    <div class="question-text" id="questionText"></div>
     <div class="question-counter" id="questionCounter"></div>
     <div class="buttons">
         <button id="btnA" onclick="selectAnswer(questions[current].a)"></button>
@@ -167,7 +166,6 @@
     function loadQuestion() {
         if (current < questions.length) {
             document.getElementById('questionCounter').innerText = `(${current + 1}/${questions.length})`;
-            document.getElementById('questionText').innerText = questions[current].q;
             document.getElementById('btnA').innerText = questions[current].q;
             document.getElementById('btnB').innerText = questions[current].q_b;
             updateProgressBar();
@@ -225,7 +223,6 @@
 
         resultDiv.innerHTML = resultText.replace(/\n/g, '<br>');
         document.getElementById('intro').innerText = "결과가 나왔습니다!";
-        document.getElementById('questionText').innerText = "";
         document.getElementById('questionCounter').innerText = "";
         document.querySelector('.buttons').style.display = "none";
         document.querySelector('.progress-bar-container').style.display = "none";
