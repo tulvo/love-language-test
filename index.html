@@ -72,16 +72,22 @@
         gap: 15px;
     }
     button {
-        padding: 20px;
-        font-size: 1.1em;
-        cursor: pointer;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        background-color: #fefefe;
-        transition: all 0.3s ease;
-        text-align: left;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    }
+    padding: 20px;
+    font-size: 1.1em;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fefefe;
+    transition: all 0.3s ease;
+    text-align: left;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+
+    /* 모바일 환경 최적화를 위한 추가 및 수정 부분 */
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
     button:hover {
         background-color: #ffe6e9;
         border-color: #ff99aa;
