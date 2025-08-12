@@ -20,20 +20,18 @@
         box-sizing: border-box;
     }
     .container {
-    width: 90%;
-    max-width: 550px;
-    padding: 40px 30px;
-    background-color: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-    text-align: center;
-    
-    /* --- 여기를 수정하세요 --- */
-    min-height: 550px; /* 컨테이너의 최소 높이 설정 */
-    display: flex;
-    flex-direction: column; /* 자식 요소들을 세로로 정렬 */
-    justify-content: center; /* 자식 요소들을 세로축 중앙에 배치 */
-}
+        width: 90%;
+        max-width: 550px;
+        padding: 40px 30px;
+        background-color: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        text-align: center;
+        min-height: 550px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
     h1 {
         font-size: 2em;
         margin-bottom: 8px;
@@ -59,13 +57,6 @@
         border-radius: 5px;
         transition: width 0.3s ease-in-out;
     }
-    .question-text {
-        font-size: 1.6em;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 30px;
-        min-height: 1.5em; /* 텍스트가 짧을 때 높이 유지 */
-    }
     .question-counter {
         font-size: 1.2em;
         color: #999;
@@ -78,26 +69,27 @@
         gap: 15px;
     }
     button {
-    padding: 20px;
-    font-size: 1.1em;
-    cursor: pointer;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background-color: #fefefe;
-    transition: all 0.3s ease;
-    text-align: left;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-
-    /* 모바일 환경 최적화를 위한 추가 및 수정 부분 */
-    min-height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+        padding: 20px;
+        font-size: 1.1em;
+        cursor: pointer;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background-color: #fefefe;
+        transition: all 0.3s ease;
+        text-align: left;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        min-height: 100px;
+        display: flex;
+        align-items: center;
+    }
     button:hover {
         background-color: #ffe6e9;
         border-color: #ff99aa;
         transform: translateY(-2px);
+    }
+    button:active {
+        background-color: #ffc2d1;
+        transform: scale(0.98);
     }
     #result {
         white-space: pre-line;
@@ -195,36 +187,34 @@
             E: "스킨십"
         };
         const descriptions = {
-            A: "칭찬, 격려, 인정하는 말로 사랑을 느낍니다.",
-            B: "상대와 함께하는 특별한 시간에 사랑을 느낍니다.",
-            C: "작더라도 진심이 담긴 선물을 주고받으며 사랑을 느낍니다.",
-            D: "상대가 나를 위해 해주는 행동과 봉사로 사랑을 느낍니다.",
-            E: "가벼운 스킨십이나 포옹을 통해 사랑을 느낍니다."
+            A: "칭찬, 격려, 인정하는 말로 사랑을 느낍니다. 진심 어린 칭찬과 지지하는 말은 당신에게 가장 큰 의미를 지니며, 비난이나 부정적인 말은 큰 상처가 될 수 있습니다.",
+            B: "상대방과 함께하는 특별한 시간에 사랑을 느낍니다. 이는 단순히 옆에 있는 것을 넘어, 서로에게 온전히 집중하는 의미 있는 시간을 뜻합니다.",
+            C: "작더라도 마음이 담긴 선물을 주고받으며 사랑을 느낍니다. 선물은 당신에게 '나를 생각하고 있구나'라는 확신을 주는 중요한 증거입니다.",
+            D: "상대가 나를 위해 해주는 행동과 봉사로 사랑을 느낍니다. 상대방이 나의 삶에 도움을 주거나, 나를 위해 기꺼이 수고하는 모습을 볼 때 깊은 사랑을 느낍니다.",
+            E: "가벼운 스킨십이나 포옹을 통해 사랑을 느낍니다. 신체적인 접촉은 당신에게 안정감과 친밀감을 주며, 말로 표현하기 힘든 감정을 전달하는 강력한 수단입니다."
         };
 
         const resultDiv = document.getElementById('result');
         let sorted = Object.entries(scores).sort((a,b) => b[1]-a[1]);
         const maxScore = sorted[0][1];
-        const minScore = sorted[sorted.length-1][1];
 
         const topLanguages = sorted.filter(([_,score]) => score === maxScore).map(([letter]) => map[letter]);
-        const bottomLanguages = sorted.filter(([_,score]) => score === minScore).map(([letter]) => map[letter]);
+        const topLanguageKey = sorted[0][0];
 
         let resultText = "## 당신의 사랑의 언어 결과는... ❤️\n\n";
 
         if (topLanguages.length > 1) {
-            resultText += `<span>제1언어(복수)</span>: ${topLanguages.join(", ")}\n\n`;
+            resultText += `<span>제1언어(복수)</span>: ${topLanguages.join(", ")}\n`;
+            resultText += `**총평**: 당신은 여러 사랑의 언어를 중요하게 생각합니다. 상황에 따라 다양한 방식으로 사랑을 주고받는 것을 선호합니다.\n\n`;
         } else {
-            const secondLanguage = sorted[1][0];
-            resultText += `<span>제1언어</span>: ${map[sorted[0][0]]}\n`;
-            resultText += `${descriptions[sorted[0][0]]}\n\n`;
-            resultText += `<span>제2언어</span>: ${map[secondLanguage]}\n`;
-            resultText += `${descriptions[secondLanguage]}\n\n`;
+            resultText += `<span>제1언어</span>: ${map[topLanguageKey]}\n`;
+            resultText += `**해설**: ${descriptions[topLanguageKey]}\n\n`;
         }
 
         resultText += "---<br><br>각 언어 점수:<br>";
         for (const [key, value] of sorted) {
-            resultText += `• ${map[key]}: ${value}점\n`;
+            const starCount = '⭐️'.repeat(Math.floor(value / 3));
+            resultText += `• ${map[key]}: ${value}점 ${starCount}\n`;
         }
 
         resultDiv.innerHTML = resultText.replace(/\n/g, '<br>');
